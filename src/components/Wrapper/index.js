@@ -6,18 +6,18 @@ import FilmSelection from "../FilmSelection";
 import FilmCategory from "../FilmCategory";
 
 function Wrapper() {
-  // const { films: koreaFilms, loading: loadingKorea } = useFilms(getFilmsKorea);
-  // const { films: chinaFilms, loading: loadingChina } = useFilms(getFilmsChina);
-  // const { films: ukFilms, loading: loadingUk } = useFilms(getFilmsUs);
+  const { films: koreaFilms, loading: loadingKorea } = useFilms(getFilmsKorea);
+  const { films: chinaFilms, loading: loadingChina } = useFilms(getFilmsChina);
+  const { films: ukFilms, loading: loadingUk } = useFilms(getFilmsUs);
 
   return (
     <div className="wrapper">
       <div className="fluid-gap">
         {/*Khe hở */}
-        {/* <FilmCategory/> */}
+        <FilmCategory/>
  
         {/* List phim */}
-        {/* <FilmSelection
+       <FilmSelection
           films={koreaFilms}
           title="Phim Hàn Quốc Mới"
           loading={loadingKorea}
@@ -31,7 +31,7 @@ function Wrapper() {
           films={ukFilms}
           title="Phim Âu Mỹ Mới"
           loading={loadingUk}
-        /> */}
+        /> 
       </div>
     </div>
   );

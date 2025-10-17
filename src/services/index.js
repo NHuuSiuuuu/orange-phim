@@ -1,30 +1,71 @@
 // import { get } from "~/ultis/request";
 
-
-import { request } from "~/ultis/request"; // `https://ophim1.com/v1/api/`
-import { gett } from "~/ultis/request";
+// import { request } from "~/ultis/request"; // `https://ophim1.com/v1/api/`
+// import {gett} from "~/ultis/request";
+import * as request from "~/ultis/request";
 
 export const search = async (keyword) => {
-  try{
-    const res = await gett('/tim-kiem',{
+  try {
+    const res = await request.getFromApi("/tim-kiem", {
       params: {
-        keyword
-      }
-    })
-    return res.data
-  }catch (error) {
-    console.log(error)
+        keyword,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
   }
-}
-
+};
 
 export const getFilm = async () => {
-  try{
-    const res = await gett("quoc-gia");
-    return res.data;
+  try {
+    const res = await request.getFromApi("quoc-gia");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  }catch(error){
-    console.log(error)
+export const getFilmsKorea = async () => {
+  try {
+    const res = await request.getFromApi("quoc-gia/han-quoc");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getFilmsChina = async () => {
+  try {
+    const res = await request.getFromApi("quoc-gia/trung-quoc");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getFilmsUs = async () => {
+  try {
+    const res = await request.getFromApi("quoc-gia/au-my");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCategory = async () => {
+  try {
+    const res = await request.getFromApi("the-loai");
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFilmsByCountry = async (slug) => {
+  try {
+    const res = await request.getFromApi(`quoc-gia/${slug}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 

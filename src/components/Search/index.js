@@ -27,6 +27,7 @@ function Search() {
     const fetchApi = async () => {
     setLoading(true)
     const result = await search(debounceValue)
+    console.log('result', result)
     setSearchResult(result.data.items)
 
       setLoading(false);
