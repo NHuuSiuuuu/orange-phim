@@ -1,0 +1,137 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    color: #ffff;
+    padding: 10px 54px;
+    gap: 17rem;
+    position: absolute;
+    z-index: 10;
+    font-size: 1.2rem;
+    transition: background-color 0.4s ease;
+
+}
+
+.header.fixed {
+    position: fixed;
+    background-color: #0f111a;
+    height: 70px;
+    top: 0;
+    left: 0;
+    right: 0;
+
+}
+
+
+.logo {
+    // flex-grow : 1;
+}
+
+.search {
+    background-color: rgba(255, 255, 255, .08);
+    width: 310px;
+    position: relative;
+
+    display: flex;
+    border-radius: .4rem;
+    height: 44px;
+
+    .search-btn {
+        height: 100%;
+        font-size: 1.8rem;
+        color: rgba(22, 24, 35, 0.34);
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(22, 24, 35, 0.03);
+        }
+    }
+
+
+    input {
+        flex: 1; // Để đẩy mấy cái nút tràn sàng bên phải
+        height: 100%;
+        font-size: 1.6rem;
+        padding-right: 40px;
+        margin-left: 8px;
+        border: none;
+        outline: none; // ẩn khung khi click vào
+        background-color: transparent;
+        color: #fff;
+
+        &::placeholder {
+            color: #fff;
+        }
+
+
+
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 50px;
+        width: 1px;
+        top: 50px; //top này sẽ bằng 18  đôi ra
+        height: 50px; // calc(var(--search-height) - 18px= 9*2);
+        background-color: rgba(22, 24, 35, 0.12);
+    }
+
+
+
+
+
+}
+
+.clear,
+.loading {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 41px;
+    height: 100%;
+    transform: translateY(-50%);
+    color: #fff;
+    border-radius: 0.4rem;
+    background-color: transparent;
+}
+
+.loading{
+    animation: spinner 1s linear infinite
+}
+
+@keyframes spinner {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to{
+        transform: translateY(-50%) rotate(360deg);
+    }
+
+}
+
+
+
+img {
+    width: auto;
+    height: 64px;
+
+}
+
+.el-group {
+    // width: 80rem;
+    flex-grow: 1;
+    display: flex;
+    // flex-grow : 4;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    :hover {
+        color: #FFD875;
+    }
+}

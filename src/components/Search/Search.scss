@@ -1,0 +1,72 @@
+.search-result {
+    background-color: rgba(15, 17, 26, .95);
+    width: 310px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    /* tránh nội dung tràn */
+    max-height: 516px;
+
+}
+
+.show-group .group-title {
+    font-size: .9em;
+    color: #aaa;
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem;
+    justify-content: space-between;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+
+
+.h-item {
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    // justify-content: space-between;
+    gap: 1rem;
+    padding: .6rem;
+    border-radius: .4rem;
+
+
+    .thumb {
+height: 104px;
+        width: 86px;
+        flex-grow: 0;
+
+        img {
+            width: 80px;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .info {
+        flex-grow: 1;
+
+        .alias-title {
+            color: #aaa;
+            font-size: .9em;
+        }
+
+    }
+}
+
+.item-title,
+.alias-title {
+    margin-bottom: .4rem;
+}
+
+.alias-title,
+.item-title {
+    font-weight: 400;
+    line-height: 1.5;
+}
