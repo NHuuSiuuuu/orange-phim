@@ -17,7 +17,7 @@ export const search = async (keyword) => {
   }
 };
 
-export const getFilm = async () => {
+export const getFilms = async () => {
   try {
     const res = await request.getFromApi("quoc-gia");
     return res;
@@ -68,6 +68,16 @@ export const getFilmsByCountry = async (slug) => {
     console.log(error);
   }
 };
+
+export const getFilm = async (slug) => {
+  try {
+    const res = await request.getFromApi(`phim/${slug}`);
+    return res.data;
+  } catch (error){
+    console.log(error)
+  }
+}
+
 
 // export const getFilmsKorea = async () => {
 //   const result = await get("quoc-gia/han-quoc");

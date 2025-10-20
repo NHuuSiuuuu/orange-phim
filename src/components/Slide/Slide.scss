@@ -79,47 +79,7 @@
                 }
             }
 
-            .hl-tags {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                gap: .6rem;
-                margin-bottom: .75rem;
-            }
 
-            .tag-model {
-                background-color: #fff;
-                color: #000;
-                font-weight: 500;
-                display: flex;
-                overflow: hidden;
-                cursor: default;
-                line-height: 26px;
-                padding: 0 .5rem;
-                flex-shrink: 0;
-            }
-
-            .tag-classic {
-                border: 1px solid #fff;
-            }
-
-            .tag-classic,
-            .tag-topic {
-                background-color: #ffffff10;
-                height: 26px;
-                padding: 0 .4rem;
-                color: #fff;
-                display: inline-flex;
-            }
-
-            .tag-model,
-            .tag-classic,
-            .tag-topic {
-                border-radius: .33rem;
-                align-items: center;
-                font-size: 12px;
-            }
 
             .description {
                 font-size: 1em;

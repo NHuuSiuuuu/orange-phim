@@ -17,24 +17,25 @@
 html {
     font-size: 65%;
 
-    
+
 }
+
 // Scroll bar CSS
 
 html *::-webkit-scrollbar {
-  border-radius: 0;
-  width: 8px;
+    border-radius: 0;
+    width: 8px;
 }
 
 html *::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 
 html *::-webkit-scrollbar-track {
-  border-radius: 0;
-  background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 
@@ -74,4 +75,48 @@ svg {
 
 button:hover {
     cursor: pointer;
+}
+
+.hl-tags {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: .75rem;
+            margin-bottom: 1.25rem;
+
+}
+
+.tag-model {
+    background-color: #fff;
+    color: #000;
+    font-weight: 500;
+    display: flex;
+    overflow: hidden;
+    cursor: default;
+    line-height: 26px;
+    padding: 0 .5rem;
+    flex-shrink: 0;
+}
+
+.tag-classic {
+    border: 1px solid #fff;
+}
+
+.tag-classic,
+.tag-topic {
+    background-color: #ffffff10;
+    height: 26px;
+    padding: 0 .4rem;
+    color: #fff;
+    display: inline-flex;
+}
+
+.tag-model,
+.tag-classic,
+.tag-topic {
+    border-radius: .33rem;
+    align-items: center;
+    font-size: 12px;
 }

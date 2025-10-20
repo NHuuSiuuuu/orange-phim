@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { getFilm } from "~/services";
+import { getFilms } from "~/services";
 function PageNationList() {
       const [data, setData] = useState([]);
      
        useEffect(() => {
         async function fetchData() {
-         const result = await getFilm();
+         const result = await getFilms();
          setData(result.data.items)
         }
         fetchData();

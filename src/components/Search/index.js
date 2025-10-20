@@ -27,7 +27,7 @@ function Search() {
     const fetchApi = async () => {
     setLoading(true)
     const result = await search(debounceValue)
-    console.log('result', result)
+    // console.log('result', result)
     setSearchResult(result.data.items)
 
       setLoading(false);
@@ -35,12 +35,12 @@ function Search() {
 
     fetchApi();
   }, [debounceValue]);
-  console.log("Kết quả tìm kiếm: ", searchResult);
+  // console.log("Kết quả tìm kiếm: ", searchResult);
 
   const handleOnChange = (e) => {
     setSearchValue(e.target.value);
   };
-  console.log("Nhập: ", debounceValue);
+  // console.log("Nhập: ", debounceValue);
 
   const handleHideResult = () => {
     setShowResult(false);
@@ -51,8 +51,8 @@ function Search() {
     setSearchResult([]);
     inputRef.current.focus();
   };
-  console.log("Hiển thị kết quả:", showResult);
-  console.log("Loading: ", loading);
+  // console.log("Hiển thị kết quả:", showResult);
+  // console.log("Loading: ", loading);
   return (
     <div>
       <HeadlessTippy

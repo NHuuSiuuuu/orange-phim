@@ -5,7 +5,7 @@ function PageMovieDetail() {
   const params = useParams();
   // List phim từ API
   const [movie, setMovie] = useState(null);
-  
+
   // List phim cùng 1 server
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
 
@@ -42,9 +42,9 @@ function PageMovieDetail() {
       });
   }, [params.slug]);
   console.log("currentEpisodes: ", currentEpisodes);
-  console.log(movie);
+  // console.log(movie);
 
-  console.log('currentEpisodes',currentEpisodes)
+  console.log("currentEpisodes", currentEpisodes);
 
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
@@ -60,7 +60,7 @@ function PageMovieDetail() {
 
   if (!movie) return <p>Đang tải phim...</p>;
   return (
-    <div style={{padding: 50}}>
+    <div style={{ padding: 50 }}>
       <h2>Phim: {movie.name}</h2>
       <h3>Thể loại: {movie.category.map((item) => item.name).join(", ")}</h3>
       <img src={imageBase + movie.thumb_url} alt={movie.name} width="250" />
@@ -80,19 +80,15 @@ function PageMovieDetail() {
           ))}
 
           <h3>Danh sách các tập phim</h3>
-          {
-            movie.episodes[currentServer].server_data.map((ep, idx) => (
-              <ul>
-                <li>
-                <button
-                onClick = {()=> setCurrentEpisodes(ep)}
-                
-                >{ep.name}</button>
-
-                </li>
-              </ul>
-            ))
-          }
+          {movie.episodes[currentServer].server_data.map((ep, idx) => (
+            <ul>
+              <li>
+                <button onClick={() => setCurrentEpisodes(ep)}>
+                  {ep.name}
+                </button>
+              </li>
+            </ul>
+          ))}
         </>
       ) : (
         <h3>ĐÉo có link</h3>

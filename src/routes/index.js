@@ -1,11 +1,12 @@
 import PageHome from "~/pages/PageHome";
 import LayoutDefault from "~/layout/LayoutDefault";
-import PageMovieSeries from "~/pages/PageMovieSeries";
-import PageMovieSingle from "~/pages/PageMovieSingle";
+import PageMovieSeries from "~/pages/PageFilmSeries";
+import PageMovieSingle from "~/pages/PageFilmSingle";
 import PageNation from "~/pages/PageNation/PageNation";
-import PageDetail from "~/pages/PageDetail";
+import PageDetail from "~/pages/PageNation/PageListFilms";
 import PageMovieDetail from "~/pages/PageMovieDetail";
 import PageNationList from "~/pages/PageNation/PageNationList";
+import PageFilmView from "~/pages/PageFilmView";
 
 export const routes = [
   {
@@ -39,10 +40,14 @@ export const routes = [
           },
         ],
       },
+      // {
+      //   path: "phim/:slug",
+      //   element: <PageMovieDetail />,
+      // },
       {
         path: "phim/:slug",
-        element: <PageMovieDetail />,
-      },
+        element: <PageFilmView/>
+      }
     ],
   },
 ];

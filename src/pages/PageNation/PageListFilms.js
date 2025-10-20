@@ -23,6 +23,7 @@ function PageDetail() {
     <>
       {
         <ul>
+          <h3 style={{color:'#fff'}}>Phim</h3>
           {post &&
             post.map((film) => (
               <>
