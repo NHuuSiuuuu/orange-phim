@@ -5,75 +5,132 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Slide.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from 'classnames/bind'
+import classNames from "classnames/bind";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import { getFilm, getFilmImage, getTypeListFilmHot } from "~/services";
 
 function Slide() {
-  const cx = classNames.bind(styles)
+  const cx = classNames.bind(styles);
+  const imageBase = "https://img.ophim.live/uploads/movies/";
+
+  // List phim
+  const [newMovies, setNewMovies] = useState([]);
+
+  // Phim
+  const [newMovie, setNewMovie] = useState([]);
+
+  // Ảnh poster phim
+  const [backdrop, setBackdrop] = useState([]);
+
+  // Mô tả phim
+  const [desMovie, setDesMovie] = useState("");
+
+  // Thể loại phim
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getTypeListFilmHot();
+      setNewMovies(data.items);
+
+      // Lấy phim đầu tiên
+      if (data.items && data.items.length > 0) {
+        setNewMovie(data.items[0]);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (!newMovie?.slug) return;
+      const img = await getFilmImage(newMovie.slug);
+      const getFilms = await getFilm(newMovie.slug);
+      setDesMovie(getFilms.seoOnPage.descriptionHead);
+      setCategory(newMovie.category);
+
+      const backdropImage = img.images.find(
+        (backdrop) => backdrop.type === "backdrop"
+      );
+      if (backdropImage) {
+        setBackdrop(
+          "https://image.tmdb.org/t/p/original" +
+            backdropImage.file_path +
+            "/images"
+        );
+      }
+    };
+    fetchImage();
+  }, [newMovie]);
+
+  if (!newMovies) return <p>Đang tải phim...</p>;
+
+  const nMovies = newMovies.slice(0, 7);
+
+  const handleOnclick = (item) => {
+    setNewMovie(item);
+  };
+  // console.log(category);
+
   return (
-    <>
-      <div className={cx('top-slide')}>
-        <div className="slide-wrapper">
-          <img
-            className={cx("img-mask")}
-            src="https://static.nutscdn.com/vimg/1920-0/0ad186e9bbf32f86a48e84a6fbaa94a3.jpg"
-            alt=""
-          />
+    <div className={cx("test")}>
+      <div className={cx("top-slide")}>
+        <div className={cx("slide-wrapper")}>
+          <div className="abc">
+            <img className={cx("img-mask")} src={backdrop} alt="" />
+          </div>
         </div>
 
         <div className={cx("safe-area")}>
           <div className={cx("slide-content")}>
             <div className={cx("media-item")}>
-              <div className={cx("media-title-image")}>
-                <a href="">
-                  <img
-                    alt="Zombie Cưng Của Ba"
-                    src="https://static.nutscdn.com/vimg/0-260/96a1c67897c251c491bd5bb36b7bbb74.png"
-                  ></img>
-                </a>
-              </div>
+              <div className={cx("media-title-image")}></div>
               <h3 className={cx("media-title")}></h3>
               <h3 className={cx("title-alias-title")}>
-                <a href="">My Daughter is a Zombie</a>
+                <a href="">{newMovie.name}</a>
               </h3>
               <div className={cx("hl-tags")}>
                 <div className={cx("tag-model")}>
                   <span>
-                    <strong>T13</strong>
+                    <strong>{newMovie?.tmdb?.vote_average}</strong>
                   </span>
                 </div>
                 <div className={cx("tag-classic")}>
-                  <span>2025</span>
+                  <span>{newMovie.year}</span>
                 </div>
                 <div className={cx("tag-classic")}>
-                  <span>1h 54m</span>
+                  <span>{newMovie.time}</span>
                 </div>
               </div>
               <div className={cx("hl-tags mb-4")}>
-                <a className={cx("tag-topic")} href="">
-                  Chính kịch
-                </a>
-                <a className={cx("tag-topic")} href="">
-                  Hài
-                </a>
+                {category.map((ct, idx) => (
+                  <a className={cx("tag-topic")} href="" key={idx}>
+                    {ct.name}
+                  </a>
+                ))}
               </div>
-              <div className={cx("description")}>
-                Cho Jung Seok hóa thân thành Lee Jung Hwan, một huấn luyện viên
-                động vật đầy nhiệt huyết quyết tâm bảo vệ cô con gái tuổi teen
-                bị nhiễm virus zombie bằng cách “thuần hóa” cô bé.
-              </div>
+              <div className={cx("description")}>{desMovie}</div>
               <div className={cx("touch")}>
-                <a href="" className={cx("button-play")}>
+                <Link
+                  to={"/phim/" + newMovie.slug}
+                  className={cx("button-play")}
+                >
                   <div>
-                    <FontAwesomeIcon className={cx("icon-play")} icon={faPlay} />
+                    <FontAwesomeIcon
+                      className={cx("icon-play")}
+                      icon={faPlay}
+                    />
                   </div>
-                </a>
+                </Link>
 
                 {/* Nhóm nút để tương tác */}
                 <div className={cx("touch-group")}>
-                  <a href="" className={cx("item")}>
+                  <a href="#" className={cx("item")}>
                     <FontAwesomeIcon icon={faHeart} />
                   </a>
-                  <a href="" className={cx("item")}>
+                  <a href="#" className={cx("item")}>
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </a>
                 </div>
@@ -81,47 +138,25 @@ function Slide() {
             </div>
             <div className={cx("swiper")}>
               <div className={cx("swiper-wrapper")}>
-                <div className={cx("swiper-slide")}>
-                  <img
-                    alt="Xem Phim"
-                    loading="lazy"
-                    src="https://static.nutscdn.com/vimg/150-0/c986724f99e98514a32f70cecd1cb173.webp"
-                  ></img>
-                </div>
-                <div className={cx("swiper-slide")}>
-                  <img
-                    alt="Xem Phim"
-                    loading="lazy"
-                    src="https://static.nutscdn.com/vimg/150-0/c986724f99e98514a32f70cecd1cb173.webp"
-                  ></img>
-                </div>
-                <div className={cx("swiper-slide")}>
-                  <img
-                    alt="Xem Phim"
-                    loading="lazy"
-                    src="https://static.nutscdn.com/vimg/150-0/c986724f99e98514a32f70cecd1cb173.webp"
-                  ></img>
-                </div>
-                <div className={cx("swiper-slide")}>
-                  <img
-                    alt="Xem Phim"
-                    loading="lazy"
-                    src="https://static.nutscdn.com/vimg/150-0/c986724f99e98514a32f70cecd1cb173.webp"
-                  ></img>
-                </div>
-                <div className={cx("swiper-slide")}>
-                  <img
-                    alt="Xem Phim"
-                    loading="lazy"
-                    src="https://static.nutscdn.com/vimg/150-0/c986724f99e98514a32f70cecd1cb173.webp"
-                  ></img>
-                </div>
+                {nMovies.map((item, index) => (
+                  <div
+                    className={cx("swiper-slide")}
+                    onClick={() => handleOnclick(item)}
+                    key={index}
+                  >
+                    <img
+                      alt="Xem Phim"
+                      loading="lazy"
+                      src={imageBase + item.thumb_url}
+                    ></img>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -3,9 +3,8 @@ import { getCategory } from "~/services";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./FilmCategory.module.scss";
-// import classNames from "classnames/bind";
 import classNames from 'classnames/bind'
-
+import { Link } from "react-router-dom";
 
 function FilmCategory() {
   const cx = classNames.bind(styles);
@@ -20,6 +19,7 @@ function FilmCategory() {
   }, []);
   //   console.log(categories)
   const ctgs = categories.slice(0, 7);
+  console.log(ctgs)
 
   return (
     <div className={cx("cards-row" ,"wide")}>
@@ -30,14 +30,14 @@ function FilmCategory() {
       <div className={cx("row-content")}>
         <div className={cx("topics-list")}>
           {ctgs.map((categ, index) => (
-            <a href="" className={cx("row-topic")}>
+            <Link to={`the-loai/${categ.slug}`}  key={index} className={cx("row-topic")}>
               <div className={cx("intro")}>
                 <div className={cx("heading-md")}>{categ.name}</div>
                 <div className={cx("info")}>
                   Xem chủ đề <FontAwesomeIcon icon={faLeftRight} />
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

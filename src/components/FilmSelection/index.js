@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function FilmSelection({
-  films,
-  title,
-  visibleCount = 4,
-  loading = false,
-}) {
+import "./FilmSelection.scss";
+import { Link } from "react-router-dom";
+
+function FilmSelection({ films, title, visibleCount = 4, loading = false }) {
   const [startIndex, setStartIndex] = useState(0);
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
@@ -52,31 +50,33 @@ function FilmSelection({
                 {/* Swiper */}
                 <div className="swiper-wrapper">
                   {visibleMovie.map((films, index) => (
-                    <div className="swiper-slide">
+                    <Link to={"/phim/" + films.slug} key={index} className="swiper-slide">
                       {/* Từng phần tử */}
                       <div className="sw-cover">
-                        <a className="sw-cover_a" href="">
+                        <div className="sw-cover_a">
                           {/* icon biểu tượng chú thích */}
                           <div className="pin-new">
-                            <div className="line-center">{films.episode_current}</div>
+                            <div className="line-center">
+                              {films.episode_current}
+                            </div>
                           </div>
                           <div>
                             <img src={imageBase + films.thumb_url} alt="" />
                           </div>
-                        </a>
+                        </div>
                         {/* Tên phim */}
                         <div className="h-item">
                           <div className="info">
                             <h4 className="item-title">
-                              <a href="/">{films.name}</a>
+                              <p>{films.name}</p>
                             </h4>
                             <h4 className="alias-title">
-                              <a href="/">{films.origin_name}</a>
+                              <p>{films.origin_name}</p>
                             </h4>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

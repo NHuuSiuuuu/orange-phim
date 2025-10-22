@@ -60,6 +60,15 @@ export const getCategory = async () => {
   }
 };
 
+export const getFilmsCategory = async (slug, page) => {
+  try {
+    const res = await request.getFromApi(`the-loai/${slug}?page=${page}&limit=30` );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getFilmsByCountry = async (slug) => {
   try {
     const res = await request.getFromApi(`quoc-gia/${slug}`);
@@ -73,11 +82,28 @@ export const getFilm = async (slug) => {
   try {
     const res = await request.getFromApi(`phim/${slug}`);
     return res.data;
-  } catch (error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
+export const getTypeListFilmHot = async () => {
+  try {
+    const res = await request.getFromApi("home");
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFilmImage = async (slug) => {
+  try {
+    const res = await request.getFromApi("phim/" + slug + "/images");
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // export const getFilmsKorea = async () => {
 //   const result = await get("quoc-gia/han-quoc");

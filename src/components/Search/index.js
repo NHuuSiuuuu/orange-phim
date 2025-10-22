@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "~/hooks/useDebounce";
 import "./Search.scss";
 import { search } from "~/services";
+import { Link } from "react-router-dom";
 
 function Search() {
   const inputRef = useRef();
@@ -58,7 +59,7 @@ function Search() {
       <HeadlessTippy
         appendTo={() => document.body}
         interactive
-        visible={searchResult.length > 0}
+        visible={showResult && searchResult.length > 0}
         placement="top-start"
         // offset={[0, 0]} // Dịch tooltip 10px sang phải, 5px xuống
         render={(attrs) => (
@@ -68,7 +69,7 @@ function Search() {
                 <div className="group-title">Danh sách phim</div>
                 <div className="group-list">
                   {searchResult.map((rs, index) => (
-                    <a href="" className="h-item" key={index}>
+                    <Link to={`/phim/${rs.slug}`} onClick={handleHideResult} className="h-item" key={index}>
                       <div className="thumb">
                         <img src={imageBase + rs.thumb_url} alt="" />
                       </div>
@@ -80,7 +81,7 @@ function Search() {
                         <div className="alias-title">{rs.origin_name}</div>
                         <div className="alias-title">2024</div>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>

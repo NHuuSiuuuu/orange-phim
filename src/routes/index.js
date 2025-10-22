@@ -7,6 +7,7 @@ import PageDetail from "~/pages/PageNation/PageListFilms";
 import PageMovieDetail from "~/pages/PageMovieDetail";
 import PageNationList from "~/pages/PageNation/PageNationList";
 import PageFilmView from "~/pages/PageFilmView";
+import PageFilmsCategory from "~/pages/PageFilmsCategory";
 
 export const routes = [
   {
@@ -47,6 +48,10 @@ export const routes = [
       {
         path: "phim/:slug",
         element: <PageFilmView/>
+      },
+      {
+        path: "the-loai/:slug",
+        element: <PageFilmsCategory/>
       }
     ],
   },
