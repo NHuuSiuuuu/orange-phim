@@ -1,0 +1,33 @@
+.nation {}
+
+.tippy {
+    overflow-y: auto;
+    /* tránh nội dung tràn */
+    max-height: 480px;
+    background-color: #0f111a;
+    margin-top: 10px;
+    border-radius: 6.4px;
+    padding: .5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    line-height: 32px;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /*  Cuộn mượt trên iOS */
+
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: transparent;
+    }
+
+    a {
+        font-size: 13px;
+        width: 100px;
+    }
+
+
+    a:hover {
+        color: #FFD875;
+
+    }
+}

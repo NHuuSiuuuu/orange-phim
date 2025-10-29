@@ -13,6 +13,7 @@ import { getFilm, getFilmImage, getTypeListFilmHot } from "~/services";
 
 function Slide() {
   const cx = classNames.bind(styles);
+  
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
   // List phim
@@ -51,7 +52,7 @@ function Slide() {
       setDesMovie(getFilms.seoOnPage.descriptionHead);
       setCategory(newMovie.category);
 
-      const backdropImage = img.images.find(
+      const backdropImage = img?.images?.find(
         (backdrop) => backdrop.type === "backdrop"
       );
       if (backdropImage) {

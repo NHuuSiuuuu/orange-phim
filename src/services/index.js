@@ -17,7 +17,7 @@ export const search = async (keyword) => {
   }
 };
 
-export const getFilms = async () => {
+export const getCountry = async () => {
   try {
     const res = await request.getFromApi("quoc-gia");
     return res;
@@ -25,6 +25,33 @@ export const getFilms = async () => {
     console.log(error);
   }
 };
+
+export const getCategory = async () => {
+  try {
+    const res = await request.getFromApi("the-loai");
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFilmsCommon = async (type,slug, page) => {
+  try {
+    const res = await request.getFromApi(`${type}/${slug}?page=${page}&limit=30`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getListFilm = async (slug, page) => {
+  try {
+    const res = await request.getFromApi(`danh-sach/${slug}?page=${page}&limit=30`)
+    return res.data
+  }catch(error){
+    console.log(error)
+  }
+}
 
 export const getFilmsKorea = async () => {
   try {
@@ -51,14 +78,7 @@ export const getFilmsUs = async () => {
   }
 };
 
-export const getCategory = async () => {
-  try {
-    const res = await request.getFromApi("the-loai");
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 export const getFilmsCategory = async (slug, page) => {
   try {
@@ -69,14 +89,8 @@ export const getFilmsCategory = async (slug, page) => {
   }
 };
 
-export const getFilmsByCountry = async (slug) => {
-  try {
-    const res = await request.getFromApi(`quoc-gia/${slug}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
+
 
 export const getFilm = async (slug) => {
   try {
@@ -104,6 +118,15 @@ export const getFilmImage = async (slug) => {
     console.log(error);
   }
 };
+
+export const getCastList = async (slug) => {
+  try{
+    const res = await request.getFromApi("phim/"+ slug + "/peoples")
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // export const getFilmsKorea = async () => {
 //   const result = await get("quoc-gia/han-quoc");

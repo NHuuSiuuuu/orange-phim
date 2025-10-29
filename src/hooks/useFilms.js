@@ -8,6 +8,7 @@ export function useFilms(apiFunction) {
     
     useEffect(() => {
         async function fetchData() {
+            setLoading(true)
             try {
                 const result = await apiFunction();
                 setFilms(result.data.items);

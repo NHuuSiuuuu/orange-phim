@@ -5,6 +5,8 @@ import "./Header.scss";
 import logo from "~/assets/img/logo.png";
 
 import Search from "../Search";
+import NationList from "../NationList";
+import CategoryList from "../CategoryList";
 
 function Header() {
   const [isActive, setIsActive] = useState(false);
@@ -42,20 +44,16 @@ function Header() {
         </div>
 
         <div className="m-single">
-          <Link to="/phim-le">Phim Lẻ</Link>
+          <Link to="/danh-sach/phim-le">Phim Lẻ</Link>
         </div>
 
         <div className="m-series">
-          <Link to="/phim-bo">Phim Bộ</Link>
+          <Link to="/danh-sach/phim-bo">Phim Bộ</Link>
         </div>
 
-        <div className="m-series">
-          <Link to="/phim-bo">Diễn Viên</Link>
-        </div>
+       <CategoryList/>
 
-        <div className="nation">
-          <Link to="/quoc-gia">Quốc Gia</Link>
-        </div>
+       <NationList/>
       </div>
     </div>
   );

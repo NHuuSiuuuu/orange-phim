@@ -1,48 +1,56 @@
 import classNames from "classnames/bind";
-import styles from "./PageFilmsCategory.module.scss";
-import { useParams } from "react-router-dom";
+import styles from "./PageMovieSeries.module.scss";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getFilmsCategory } from "~/services";
+import { getFilmsCommon } from "~/services";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-function PageFilmsCategory() {
+function PageMovieSeries({type}) {
   const cx = classNames.bind(styles);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page")) || 1;
+
   const prams = useParams();
-  console.log(prams);
+  //   console.log(prams);
   const [movies, setMovie] = useState([]);
-  const [pageActive, setPageActive] = useState(1);
   const [quantityPage, setQuantityPage] = useState(1);
+
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
   const [descriptionHead, setDescriptionHead] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const ct = await getFilmsCategory(prams.slug, pageActive);
+      const ct = await getFilmsCommon(type,prams.slug, currentPage);
       setMovie(ct.items);
-      setDescriptionHead(ct.seoOnPage.descriptionHead);
+      setDescriptionHead(ct.titlePage);
       setQuantityPage(Math.ceil(ct?.params?.pagination?.totalItems / 30));
+      // Cuộn đầu trang
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     };
     fetchData();
-  }, [pageActive]);
-  console.log("Tổng số trang: ", quantityPage);
-
+  }, [currentPage, prams.slug],type);
+  //   console.log("Tổng số trang: ", quantityPage);
+console.log(type)
   const handleNext = () => {
-    if (pageActive > 0) {
-      setPageActive(pageActive + 1);
+    if (currentPage < quantityPage) {
+      setSearchParams({ page: currentPage + 1 });
     }
   };
   const handlePrev = () => {
-    if (pageActive > 1) {
-      setPageActive(pageActive - 1);
+    if (currentPage > 0) {
+      setSearchParams({ page: currentPage - 1 });
     }
   };
-  //   console.log(movies);
+
   return (
     <div className={cx("wrapper")} style={{ color: "#fff" }}>
-      <h3 className={cx("category-name")}>{descriptionHead}</h3>
+      <h3 className={cx("category-name")}> {type == 'quoc-gia' ? `Phim ${descriptionHead}` : descriptionHead} </h3>
       {/*  */}
       <div className="swiper-wrapper">
         {movies.map((item, index) => (
@@ -82,7 +90,7 @@ function PageFilmsCategory() {
           </button>
           <div className={cx("page-current")}>
             <div>
-              Trang {pageActive} / {quantityPage}
+              Trang {currentPage} / {quantityPage}
             </div>
           </div>
           <button className={cx("btn-circle")} onClick={handleNext}>
@@ -90,10 +98,8 @@ function PageFilmsCategory() {
           </button>
         </div>
       </div>
-
-
     </div>
   );
 }
 
-export default PageFilmsCategory;
+export default PageMovieSeries;

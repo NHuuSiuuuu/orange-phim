@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { getFilm } from "~/services";
 import "./PageFilmView.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCheck, faChevronCircleLeft, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import CastList from "~/components/CastList";
 
 // Lần đầu render ra movie là null
 // Sau khi chạy api xong nó mới có dữ liệu
@@ -17,7 +19,16 @@ function PageFilmView() {
 
   // server của phim hiện tại
   const [currentServer, setCurrentServer] = useState(0);
+  
+  // Params 
   const params = useParams();
+  // console.log(params.slug)
+
+  // Loại phim
+  const [typeFilms, setTypeFilms] = useState([]);
+
+  // Check pphim hoàn thành chưa
+  const [check, setCheck] = useState();
 
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
@@ -25,6 +36,9 @@ function PageFilmView() {
     const fetchData = async () => {
       const data = await getFilm(params.slug);
       setMovie(data);
+      setTypeFilms(data.breadCrumb);
+      setCheck(data.item.status);
+
       //   console.log(data.item.episodes[0].server_data[0]);
 
       // Lấy server đầu tiên nếu có nhiều server ( là mảng && mảng > 0)
@@ -40,6 +54,7 @@ function PageFilmView() {
     };
     fetchData();
   }, [params.slug]);
+  // console.log(check);
 
   const handleServer = (sv, idx) => {
     setCurrentServer(idx);
@@ -49,26 +64,22 @@ function PageFilmView() {
       setCurrentEpisodes(sv.server_data[0]);
     }
 
-    console.log("Server: ", sv);
+    // console.log("Server: ", sv);
   };
   if (!movie) return <h3>Đang tải phim ...</h3>;
-  console.log(movie);
-  console.log();
+  // console.log(movie.item.episode_current);
+  // console.log();
   //   console.log(movie.data.item)
 
   return (
     <div className="wrapper">
       <div className="watch-player">
         <div className="title">
-          <a href="/">Back</a>
+          <a href="/"><FontAwesomeIcon icon={faChevronCircleLeft} /></a>
           <h2>{movie.item.name}</h2>
         </div>
         <div className="player-ratio">
-          <iframe
-            src={currentEpisodes.link_embed}
-            frameborder="0"
-            allowFullScreen
-          ></iframe>
+          <iframe src={currentEpisodes.link_embed} allowFullScreen></iframe>
         </div>
       </div>
 
@@ -98,21 +109,35 @@ function PageFilmView() {
               </div>
 
               <div className="hl-tags mb-4">
-                <a className="tag-topic" href="">
-                  Chính kịch
-                </a>
-                <a className="tag-topic" href="">
-                  Hài
-                </a>
+                {typeFilms.map((type, index) => (
+                  <Link to={type.slug} key={index}  className="tag-topic ">
+                    {type?.name}
+                  </Link>
+                ))}
               </div>
 
               <div className="status on-going">
-                <div className="loading-d active">
-                  <FontAwesomeIcon icon={faSpinner} />
-                </div>
+                {check == "completed" ? (
+                  <FontAwesomeIcon className="icon" icon={faCheck} />
+                ) : (
+                  <div className="loading-d active">
+                    <FontAwesomeIcon icon={faSpinner} />
+                  </div>
+                )}
 
-                <div>
-                  <span>Đã chiếu: {movie.item.episode_current} Tập</span>
+                <div className="mr">
+                  <span>
+                    {(check == "ongoing" || check == "updating") &&
+                      "Đang Chiếu "}
+                    {movie.item.episode_current == "Full" ? (
+                      "Full"
+                    ) : (
+                      <>
+                        {movie.item.episode_current} /{" "}
+                        {movie.item.episode_total}
+                      </>
+                    )}
+                  </span>
                 </div>
               </div>
             </div>
@@ -120,14 +145,20 @@ function PageFilmView() {
         </div>
 
         <div className="desc-line">
-          <div dangerouslySetInnerHTML={{ __html: movie.item.content }} />
+          <p dangerouslySetInnerHTML={{ __html: movie.item.content }} />
         </div>
 
+        {/* Danh sách các tập */}
         <div className="episodes-list">
           <div className="server-list">
             <div className="hl-tags mb-4">
               {movie.item.episodes.map((sv, idx) => (
-                <button className="tag-topic" href="" key={idx}>
+                <button
+                
+                  className="tag-topic"
+                  onClick={() => handleServer(sv, idx)}
+                  key={idx}
+                >
                   {sv.server_name}
                 </button>
               ))}
@@ -135,12 +166,15 @@ function PageFilmView() {
           </div>
 
           <div className="eps">
-            {" "}
             <div className="hl-tags">
               {movie.item.episodes[currentServer].server_data.map(
                 (item, index) => (
                   <div className="tag-model" key={index}>
-                    <button className="tag-topic" onClick={()=> setCurrentEpisodes(item)} style={{ color: "#000" }}>
+                    <button
+                      className="tag-topic"
+                      onClick={() => setCurrentEpisodes(item)}
+                      style={{ color: "#000",width: '50px' }}
+                    >
                       Tập {index + 1}
                     </button>
                   </div>
@@ -149,28 +183,12 @@ function PageFilmView() {
             </div>
           </div>
         </div>
+
+        {/* Danh sách diễn viên */}
+        <CastList slug={params.slug} />
       </div>
     </div>
-    // <div style={{ color: "red" }} className="">
-    //   <h2>Phim</h2>
-    //   <h3>Thể loại</h3>
-    //   <img src={imageBase + movie.item.thumb_url} alt="" />
-    //   <iframe src={currentEpisodes.link_embed} frameborder="0"  width={1000} height={500}></iframe>
-    //   <h4>Server</h4>
-    //   {movie.item.episodes.map((sv, idx) => (
-    //     <button onClick={()=>handleServer(sv, idx)} key={idx}>{sv.server_name}</button>
-    //   ))}
-    //   <h4>Danh sách các tập</h4>
-    //   <ul>
-
-    //   {
-    //       movie.item.episodes[currentServer].server_data.map((item, index)=>(
-    //           <li onClick = {()=>{setCurrentEpisodes(item)}}><button>{index + 1}</button></li>
-    //         ))
-    //     }
-    //     </ul>
-
-    // </div>
+    
   );
 }
 

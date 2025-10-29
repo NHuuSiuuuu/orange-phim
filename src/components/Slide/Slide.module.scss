@@ -10,26 +10,26 @@
     align-items: flex-end;
 
     &::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0; // Viết tắt của top, right, bottom, left = 0
+        content: "";
+        position: absolute;
+        z-index: 1;
+        inset: 0; // Viết tắt của top, right, bottom, left = 0
 
-    // Lớp phủ trên ảnh
-    background:
-  linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 20%),
-  linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 20%),
-  linear-gradient(to left, rgba(0, 0, 0, 0.95), transparent 80%),
-linear-gradient(to right, rgba(0, 0, 0, 0.95), transparent 20%);
+        // Lớp phủ trên ảnh
+        background:
+            linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 20%),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 20%),
+            linear-gradient(to left, rgba(0, 0, 0, 0.95), transparent 80%),
+            linear-gradient(to right, rgba(0, 0, 0, 0.95), transparent 20%);
 
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    mix-blend-mode: multiply;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        mix-blend-mode: multiply;
         width: 380rem;
         margin: 0 auto;
-    /* trộn vào ảnh */
-    pointer-events: none;
-}
+        /* trộn vào ảnh */
+        pointer-events: none;
+    }
 
 
 
@@ -233,6 +233,7 @@ linear-gradient(to right, rgba(0, 0, 0, 0.95), transparent 20%);
 .test {
     position: relative;
 }
+
 .test::after {
     content: "";
     position: absolute;
@@ -248,8 +249,8 @@ linear-gradient(to right, rgba(0, 0, 0, 0.95), transparent 20%);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     mix-blend-mode: multiply;
-        width: 380rem;
-        margin: 0 auto;
+    width: 380rem;
+    margin: 0 auto;
     /* trộn vào ảnh */
     pointer-events: none;
 }
