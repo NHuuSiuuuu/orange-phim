@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function CategoryList() {
-  const [post, setPost] = useState([]);
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
 
@@ -18,7 +17,7 @@ function CategoryList() {
       setData(result.items);
     }
     fetchData();
-  }, []);
+  }, [data.slug]);
   const handleClickOutSide = () => {
     setVisible(false);
   };
@@ -49,15 +48,15 @@ function CategoryList() {
             </div>
           )}
         >
-          <Link
+          <p
             onClick={(e) => {
               e.preventDefault();
               setVisible(!visible); // thằng này phải bật tắt nên đảo ngược lại
             }}
             to=""
           >
-            Thể Loại <FontAwesomeIcon icon={faCaretDown} />
-          </Link>
+            <FontAwesomeIcon icon={faCaretDown}  />Thể loại
+          </p>
         </HeadlessTippy>
       </div>
     </>

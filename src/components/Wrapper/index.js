@@ -31,7 +31,7 @@ function Wrapper() {
           films={ukFilms}
           title="Phim Âu Mỹ Mới"
           loading={loadingUk}
-        /> 
+        />  
       </div>
     </div>
   );

@@ -10,7 +10,9 @@
     padding: 12px 8px;
     line-height: 32px;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+    border: solid 1px #ccc;
+    -webkit-overflow-scrolling: touch;
+    /* Cuộn mượt trên iOS */
 
     ul {
         padding: 0 5px;

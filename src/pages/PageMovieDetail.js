@@ -16,7 +16,7 @@ function PageMovieDetail() {
     fetch(`https://ophim1.com/v1/api/phim/${params.slug}`)
       .then((res) => res.json())
       .then((res) => {
-        console.log("Kết quả API phim:", res);
+        // console.log("Kết quả API phim:", res);
         const data = res.data.item;
         setMovie(data);
 
@@ -44,13 +44,13 @@ function PageMovieDetail() {
   console.log("currentEpisodes: ", currentEpisodes);
   // console.log(movie);
 
-  console.log("currentEpisodes", currentEpisodes);
+  // console.log("currentEpisodes", currentEpisodes);
 
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
   const handleClickServer = (server, index) => {
     setCurrentServer(index);
-    console.log(server);
+    // console.log(server);
 
     // Luôn lấy tập đầu tiên cảu server đó
     if (server.server_data?.length > 0) {

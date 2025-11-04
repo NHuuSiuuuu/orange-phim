@@ -1,0 +1,142 @@
+.player-ratio {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 /9;
+
+}
+
+.player-ratio iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: auto;
+
+}
+
+.wrapper {
+  color: #FFF;
+  margin: 48px auto;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1640px;
+  padding: 0 20px;
+  // margin: 0 auto;
+
+}
+
+.watch-player {
+
+
+  h2 {
+    font-weight: 600;
+    line-height: 1.5;
+    // margin-bottom: .5rem;
+    color: #fff;
+  }
+
+  .title {}
+
+
+
+}
+
+.watch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 40px;
+  padding: 0 16px;
+
+  .wm-info {
+    display: flex;
+    gap: 1.5rem;
+
+    .thumb {
+
+
+      img {
+        width: 100%;
+        height: 172px;
+        border-radius: 8px;
+
+        object-fit: cover;
+      }
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+  
+
+    h2 {
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: .5rem;
+      color: #fff;
+    }
+
+    .alias-name {
+      color: #ffd875;
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  .detail-more {
+    .hl-tags {
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      /* justify-content: center; */
+      flex-wrap: wrap;
+      margin-right: 3px;
+      gap: 0.6rem ;
+    }
+  }
+
+
+}
+.episodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.eps {
+  .hl-tags{
+    display: flex;
+    gap: 3px;
+  }
+}
+
+.status {
+  .status.on-going {
+    color: #fff;
+    font-size: 11px;
+  }
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.custom-spin{
+  animation: fa-spin 0.9s linear infinite;
+}
+
+
+
+
+.desc-line {
+  color: #aaa;
+}

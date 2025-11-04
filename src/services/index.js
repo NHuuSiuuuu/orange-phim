@@ -53,6 +53,16 @@ export const getListFilm = async (slug, page) => {
   }
 }
 
+export const getListFilmRecommended = async (slug) => {
+  try {
+    const res = await request.getFromApi(`${slug}?limit=30`)
+    return res.data
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
 export const getFilmsKorea = async () => {
   try {
     const res = await request.getFromApi("quoc-gia/han-quoc");

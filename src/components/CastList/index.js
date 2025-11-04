@@ -3,11 +3,11 @@ import { getCastList } from "~/services";
 import classNames from "classnames/bind";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import styles from "./CastList.mudule.scss";
+import styles from "./CastList.module.scss";
 import noImage from "~/assets/img/noimage.jpeg"
 
 function CastList(slug) {
-  const cx = classNames.bind();
+  const cx = classNames.bind(styles);
 
   const [castList, setCastList] = useState([]);
   const listRef = useRef(null);
@@ -16,35 +16,21 @@ function CastList(slug) {
     const fetchData = async () => {
       const data = await getCastList(slug.slug);
       setCastList(data?.peoples);
-      console.log(castList);
+      // console.log(castList);
     };
     fetchData();
-  }, []);
+  }, [slug]);
 
-  const handleWheel = (e) => {
-    const el = listRef.current;
-    if (!el) return;
-    // If the user scrolls vertically, move horizontally instead
-    // This makes mouse wheel scroll the horizontal list when hovering
-    if (Math.abs(e.deltaY) > 0) {
-      // normalize delta depending on deltaMode
-      let delta = e.deltaY;
-      // DOM_DELTA_LINE (1) needs scaling to pixels
-      if (e.nativeEvent && e.nativeEvent.deltaMode === 1) {
-        delta = delta * 16;
-      }
-      // prevent parent page from scrolling
-      e.preventDefault();
-      e.stopPropagation();
-      el.scrollLeft += delta;
-    }
-  };
+const handleWheel = (e) => {
+  listRef.current.scrollLeft += e.deltaY;
+};
+
 
   return (
     <>
       <div className={cx("cards-row", "wide")}>
         <div className={cx("row-header h2")}>
-          <h2> {castList && `Danh sách diễn viên`}</h2>
+          <h2> {castList == [] && castList && `Danh sách diễn viên`}</h2>
         </div>
 
         <div

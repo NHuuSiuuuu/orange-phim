@@ -55,7 +55,6 @@ function Search() {
   // console.log("Hiển thị kết quả:", showResult);
   // console.log("Loading: ", loading);
   return (
-    <div>
       <HeadlessTippy
         appendTo={() => document.body}
         interactive
@@ -112,7 +111,6 @@ function Search() {
           )}
         </div>
       </HeadlessTippy>
-    </div>
   );
 }
 

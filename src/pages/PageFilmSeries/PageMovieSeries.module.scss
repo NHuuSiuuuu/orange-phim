@@ -1,0 +1,119 @@
+        .category-name {
+            margin: 20px;
+        }
+
+
+        .wrapper {
+            width: 100%;
+            margin: 0 auto;
+            max-width: 1900px;
+            // color: #ffff;
+
+            .fluid-gap {
+                // Khoảng cách khe hỏ dưới
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+
+
+            }
+
+
+
+
+        }
+
+        .sw-next,
+        .sw-prev {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            border-radius:12px 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sw-prev {
+            right: -50px;
+        }
+
+
+
+        .swiper-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 0 16px;
+            column-gap: .5rem;
+            row-gap: 1.5rem;
+
+            .swiper-slide {
+                border-radius:12px 4px;
+                flex-shrink: 0;
+                width: 100%;
+                height: 100%;
+
+                .sw-cover_a {
+    
+                    position: relative;
+
+                 
+                }
+
+                img {
+                    width: 100%;
+                    height: 292px;
+                    border-radius:12px 12px;
+                    object-fit: cover;
+                }
+
+                .pin-new {
+                    position: absolute;
+                    bottom: 0%;
+                    padding: .2rem .5rem;
+                    font-size: 14px;
+                    font-weight: 400;
+                    background-color: #5e6070;
+                    color: #fff;
+                    border-bottom-left-radius:12px ;
+                    border-top-right-radius:12px ;
+                }
+
+                .h-item {
+                    .item-title {
+                        color: #fff;
+                        font-size: 1em;
+                        cursor: pointer;
+
+                        a {
+                            font-weight: 500;
+                        }
+                    }
+
+                    .alias-title {
+                        line-height: 1.5;
+
+                        a {
+                            color: #aaa;
+                        }
+
+                    }
+
+                    .item-title,
+                    .alias-title {
+                        line-height: 1.5;
+                        font-size: .9em;
+                        margin-top: 5px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+        .item-title,
+        .alias-title {
+
+            p {
+                text-align: center;
+            }
+        }
+

@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getFilm } from "~/services";
-import "./PageFilmView.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faCheck, faChevronCircleLeft, faSpinner } from "@fortawesome/free-solid-svg-icons";
+
+import {
+  faCheck,
+  faChevronCircleLeft,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CastList from "~/components/CastList";
+import { useNavigate } from "react-router-dom";
+import RecommendedMovies from "~/components/RecommendedMovies";
+import LoadingNoM from "~/components/LoadingNoM";
+import classNames from "classnames/bind";
+import styles from "./PageFilmView.module.scss";
 
 // Lần đầu render ra movie là null
 // Sau khi chạy api xong nó mới có dữ liệu
 
 function PageFilmView() {
+  const cx = classNames.bind(styles);
   // List phim từ API
   const [movie, setMovie] = useState(null);
 
@@ -19,16 +29,23 @@ function PageFilmView() {
 
   // server của phim hiện tại
   const [currentServer, setCurrentServer] = useState(0);
-  
-  // Params 
+
+  // Params
   const params = useParams();
-  // console.log(params.slug)
+  console.log(params.slug);
 
   // Loại phim
   const [typeFilms, setTypeFilms] = useState([]);
 
   // Check pphim hoàn thành chưa
   const [check, setCheck] = useState();
+
+  // Go back
+  const nav = useNavigate();
+
+  const handleGoBack = () => {
+    nav(-1);
+  };
 
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
@@ -54,7 +71,7 @@ function PageFilmView() {
     };
     fetchData();
   }, [params.slug]);
-  // console.log(check);
+  console.log(check);
 
   const handleServer = (sv, idx) => {
     setCurrentServer(idx);
@@ -67,67 +84,84 @@ function PageFilmView() {
     // console.log("Server: ", sv);
   };
   if (!movie) return <h3>Đang tải phim ...</h3>;
-  // console.log(movie.item.episode_current);
+  console.log(currentEpisodes);
   // console.log();
-  //   console.log(movie.data.item)
+  // console.log(movie.breadCrumb[0].slug)
 
   return (
-    <div className="wrapper">
-      <div className="watch-player">
-        <div className="title">
-          <a href="/"><FontAwesomeIcon icon={faChevronCircleLeft} /></a>
-          <h2>{movie.item.name}</h2>
-        </div>
-        <div className="player-ratio">
-          <iframe src={currentEpisodes.link_embed} allowFullScreen></iframe>
+    <div className={cx("wrapper page-film-view")}>
+      <div className={cx("title")} onClick={handleGoBack}>
+        <h2 style={{ fontSize: "20px", margin: "20px 0 20px 10px" }}>
+          <FontAwesomeIcon icon={faChevronCircleLeft} />
+          {movie.item.name}
+        </h2>
+      </div>
+      <div className={cx("watch-player")}>
+        <div className={cx("player-ratio")}>
+          {currentEpisodes?.link_embed ? (
+            <iframe
+              src={currentEpisodes?.link_embed}
+              title={movie?.item?.name || "player"}
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              // allow="autoplay;clipboard-write; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <LoadingNoM />
+          )}
         </div>
       </div>
 
-      <div className="watch-container">
-        <div className="wm-info">
-          <div className="thumb">
+      <div className={cx("watch-container")}>
+        <div className={cx("wm-info")}>
+          <div className={cx("thumb")}>
             <img src={imageBase + movie.item.thumb_url} alt="" />
           </div>
-          <div className="info">
-            <h2>
-              <a href="">{movie.item.name}</a>
-            </h2>
-            <div className="alias-name">{movie.item.origin_name}</div>
-            <div className="detail-more">
-              <div className="hl-tags">
-                <div className="tag-model">
+          <div className={cx("info")}>
+            <h2 style={{ fontSize: "14px" }}>{movie.item.name}</h2>
+            <div className={cx("alias-name")} style={{ fontSize: "14px" }}>
+              {movie.item.origin_name}
+            </div>
+            <div className={cx("detail-more")}>
+              <div className={cx("hl-tags")}>
+                <div className={cx("tag-model")}>
                   <span>
                     <strong>T13</strong>
                   </span>
                 </div>
-                <div className="tag-classic">
+                <div className={cx("tag-classic")}>
                   <span>{movie.item.year}</span>
                 </div>
-                <div className="tag-classic">
+                <div className={cx("tag-classic")}>
                   <span>{movie.item.time}</span>
                 </div>
               </div>
 
               <div className="hl-tags mb-4">
                 {typeFilms.map((type, index) => (
-                  <Link to={type.slug} key={index}  className="tag-topic ">
+                  <Link to={type.slug} key={index} className={cx("tag-topic ")}>
                     {type?.name}
                   </Link>
                 ))}
               </div>
 
-              <div className="status on-going">
+              <div
+                className={cx("status on-going")}
+                style={{ color: "#fff", fontSize: "11px",gap: "2px",
+                  marginTop: "0.6rem"
+              }}
+              >
                 {check == "completed" ? (
-                  <FontAwesomeIcon className="icon" icon={faCheck} />
+                  <FontAwesomeIcon className={cx("icon")} icon={faCheck} />
                 ) : (
-                  <div className="loading-d active">
-                    <FontAwesomeIcon icon={faSpinner} />
+                  <div className={cx("loading-d")}>
+                    <FontAwesomeIcon icon={faSpinner} className={cx("custom-spin")} spin /> {/*Thêm thằng spin trong thư viện FontS là nó xoay trong 2s  */}
                   </div>
                 )}
 
-                <div className="mr">
+                <div className={cx("mr")}>
                   <span>
-                    {(check == "ongoing" || check == "updating") &&
+                    {(check === "ongoing" || check === "updating") &&
                       "Đang Chiếu "}
                     {movie.item.episode_current == "Full" ? (
                       "Full"
@@ -144,18 +178,17 @@ function PageFilmView() {
           </div>
         </div>
 
-        <div className="desc-line">
-          <p dangerouslySetInnerHTML={{ __html: movie.item.content }} />
+        <div className={cx("desc-line")}>
+          <p style={{fontSize:'10px'}} dangerouslySetInnerHTML={{ __html: movie.item.content }} />
         </div>
 
         {/* Danh sách các tập */}
-        <div className="episodes-list">
-          <div className="server-list">
-            <div className="hl-tags mb-4">
+        <div className={cx("episodes-list")}>
+          <div className={cx("server-list")}>
+            <div className={cx("hl-tags mb-4")}>
               {movie.item.episodes.map((sv, idx) => (
                 <button
-                
-                  className="tag-topic"
+                  className={cx("tag-topic")}
                   onClick={() => handleServer(sv, idx)}
                   key={idx}
                 >
@@ -165,19 +198,17 @@ function PageFilmView() {
             </div>
           </div>
 
-          <div className="eps">
-            <div className="hl-tags">
+          <div className={cx("eps")}>
+            <div className={cx("hl-tags")}>
               {movie.item.episodes[currentServer].server_data.map(
                 (item, index) => (
-                  <div className="tag-model" key={index}>
-                    <button
-                      className="tag-topic"
-                      onClick={() => setCurrentEpisodes(item)}
-                      style={{ color: "#000",width: '50px' }}
-                    >
-                      Tập {index + 1}
-                    </button>
-                  </div>
+                  <button
+                    className={cx("tag-topic")}
+                    key={index}
+                    onClick={() => setCurrentEpisodes(item)}
+                  >
+                    Tập {index + 1}
+                  </button>
                 )
               )}
             </div>
@@ -186,9 +217,10 @@ function PageFilmView() {
 
         {/* Danh sách diễn viên */}
         <CastList slug={params.slug} />
+
+        <RecommendedMovies slug={movie.breadCrumb[0].slug} />
       </div>
     </div>
-    
   );
 }
 

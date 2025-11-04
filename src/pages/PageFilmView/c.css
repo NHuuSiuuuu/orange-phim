@@ -4,7 +4,7 @@
     // min-height: calc(100vh - 400px);
     // margin-top: 94px;
     color: #FFF;
-    margin: 94px auto;
+    margin: 48px auto;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -29,7 +29,7 @@
 
     }
 
-    .player-ratio {
+    /* .player-ratio {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -41,7 +41,7 @@
             width: 100%;
             height: 900px;
         }
-    }
+    } */
 
 }
 
@@ -62,7 +62,7 @@
 
             img {
                 width: 100%;
-                height: 185px;
+                height: 172px;
             }
         }
     }
@@ -95,7 +95,6 @@
 
 .status {
     display: flex;
-     align-items: center; 
 }
 
 .status {
@@ -121,6 +120,3 @@
 .desc-line {
     color: #aaa;
 }
- .mr{
-    margin-left: 5px;
- }

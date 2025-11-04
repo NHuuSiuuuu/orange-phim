@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function NationList() {
-  const [post, setPost] = useState([]);
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
 
@@ -52,16 +51,15 @@ function NationList() {
             </div>
           )}
         >
-          <Link
+          <p
             onClick={(e) => {
-              e.preventDefault();
               setVisible(!visible); // thằng này phải bật tắt nên đảo ngược lại
             }}
             to=""
 
           >
             Quốc Gia<FontAwesomeIcon icon={faCaretDown} />
-          </Link>
+          </p>
         </HeadlessTippy>
       </div>
     </>

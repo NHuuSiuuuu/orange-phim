@@ -2,17 +2,19 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function ScrollToTop() {
-    const location = useLocation()
-    useEffect(()=>{
-        window.scrollTo({
-            top: 0,
-            bahavior: 'smooth'
-        })
+  //  lấy thông tin về URL hiện tại
+  const location = useLocation();
 
+  useEffect(() => {
+    // scroll to top whenever pathname or search changes
+    window.scrollTo({
+      top: 0,
 
+      behavior: "smooth",
+    });
+  }, [location.pathname, location.search]);
 
-    },[location.pathname])
-    return null;
+  return null;
 }
 
 export default ScrollToTop;

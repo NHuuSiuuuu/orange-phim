@@ -19,7 +19,7 @@ function FilmCategory() {
   }, []);
   //   console.log(categories)
   const ctgs = categories.slice(0, 7);
-  console.log(ctgs)
+  // console.log(ctgs)
 
   return (
     <div className={cx("cards-row" ,"wide")}>

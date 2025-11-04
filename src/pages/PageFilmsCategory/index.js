@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./PageFilmsCategory.module.scss";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFilmsCategory } from "~/services";
 import { Link } from "react-router-dom";
@@ -10,9 +10,10 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 function PageFilmsCategory() {
   const cx = classNames.bind(styles);
   const prams = useParams();
-  console.log(prams);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+  // console.log(currentPage);
   const [movies, setMovie] = useState([]);
-  const [pageActive, setPageActive] = useState(1);
   const [quantityPage, setQuantityPage] = useState(1);
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
@@ -20,23 +21,23 @@ function PageFilmsCategory() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const ct = await getFilmsCategory(prams.slug, pageActive);
+      const ct = await getFilmsCategory(prams.slug, currentPage);
       setMovie(ct.items);
       setDescriptionHead(ct.seoOnPage.descriptionHead);
       setQuantityPage(Math.ceil(ct?.params?.pagination?.totalItems / 30));
     };
     fetchData();
-  }, [pageActive]);
-  console.log("Tổng số trang: ", quantityPage);
+  }, [currentPage, prams.slug]);
+  // console.log("Tổng số trang: ", quantityPage);
 
   const handleNext = () => {
-    if (pageActive > 0) {
-      setPageActive(pageActive + 1);
+    if (currentPage < quantityPage) {
+      setSearchParams({ page: currentPage + 1 });
     }
   };
   const handlePrev = () => {
-    if (pageActive > 1) {
-      setPageActive(pageActive - 1);
+    if (currentPage > 0) {
+      setSearchParams({ page: currentPage - 1 });
     }
   };
   //   console.log(movies);
@@ -82,7 +83,7 @@ function PageFilmsCategory() {
           </button>
           <div className={cx("page-current")}>
             <div>
-              Trang {pageActive} / {quantityPage}
+              Trang {currentPage} / {quantityPage}
             </div>
           </div>
           <button className={cx("btn-circle")} onClick={handleNext}>
@@ -90,8 +91,6 @@ function PageFilmsCategory() {
           </button>
         </div>
       </div>
-
-
     </div>
   );
 }

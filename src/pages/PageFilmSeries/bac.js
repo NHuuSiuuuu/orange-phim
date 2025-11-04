@@ -1,20 +1,18 @@
 import classNames from "classnames/bind";
 // import styles from "./PageMovieSeries.module.scss";
+import "./PageMovieSeries.scss";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFilmsCommon } from "~/services";
+import LoadingIcon from "../../components/LoadingIcon";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import LoadingIcon from "~/components/LoadingIcon";
-import styles from "./PageMovieSeries.module.scss"
 
 function PageMovieSeries({ type }) {
-  const cx = classNames.bind(styles);
+  // const cx = classNames.bind(styles);
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page")) || 1;
-
-  const [loading, setLoading] = useState(true);
 
   const prams = useParams();
   //   console.log(prams);
@@ -24,27 +22,44 @@ function PageMovieSeries({ type }) {
   const imageBase = "https://img.ophim.live/uploads/movies/";
 
   const [descriptionHead, setDescriptionHead] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  useEffect(
-    () => {
-      const fetchData = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         setLoading(true);
         const ct = await getFilmsCommon(type, prams.slug, currentPage);
-        setMovie(ct.items);
-        setDescriptionHead(ct.titlePage);
-        setQuantityPage(Math.ceil(ct?.params?.pagination?.totalItems / 30));
+        const items = ct.items || [];
+        setMovie(items);
+        setDescriptionHead(ct.titlePage || "");
+        setQuantityPage(
+          Math.ceil(ct?.params?.pagination?.totalItems / 30) || 1
+        );
+
+        if (items.length > 0) {
+          const thumbs = items.map((it) => imageBase + it.thumb_url);
+          await Promise.all(
+            thumbs.map(
+              (src) =>
+                new Promise((resolve) => {
+                  const img = new Image();
+                  img.src = src;
+                  img.onload = img.onerror = () => resolve(src);
+                })
+            )
+          );
+        }
+
         // Cuộn đầu trang
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
-      fetchData();
-      setLoading(false);
-    },
-    [currentPage, prams.slug],
-    type
-  );
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        console.error("PageMovieSeries load error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [currentPage, prams.slug, type]);
   //   console.log("Tổng số trang: ", quantityPage);
   console.log(type);
   const handleNext = () => {
@@ -53,48 +68,47 @@ function PageMovieSeries({ type }) {
     }
   };
   const handlePrev = () => {
-    if (currentPage > 0) {
+    if (currentPage > 1) {
       setSearchParams({ page: currentPage - 1 });
     }
   };
 
   return (
-    <div className={cx("wrapper")} style={{ color: "#fff" }}>
-      <h3 className={cx("category-name")}>
+    <div className="wrapper" style={{ color: "#fff" }}>
+      <h3 className="category-name">
         {" "}
         {type == "quoc-gia" ? `Phim ${descriptionHead}` : descriptionHead}{" "}
       </h3>
       {/*  */}
-      {loading == true ? (
+      {loading ? (
         <LoadingIcon />
       ) : (
-        <div className={cx("swiper-wrapper")}>
+        <div className="swiper-wrapper">
           {movies.map((item, index) => (
             <Link
               to={`/phim/${item.slug}`}
               key={index}
-              className={cx("swiper-slide")}
+              className="swiper-slide"
             >
               {/* Từng phần tử */}
-              <div className={cx("sw-cover")}>
-                <div className={cx("sw-cover_a")}>
+              <div className="sw-cover">
+                <div className="sw-cover_a">
                   {/* icon biểu tượng chú thích */}
-                  <div className={cx("pin-new")}>
-                    <div className={cx("line-center")}>{item.episode_current}</div>
+                  <div className="pin-new">
+                    <div className="line-center">{item.episode_current}</div>
                   </div>
                   <div>
-                    {/* <img src={item} alt="" /> */}
                     <img src={imageBase + item.thumb_url} alt="" />
                   </div>
                 </div>
                 {/* Tên phim */}
-                <div className={cx("h-item")}>
-                  <div className={cx("info")}>
-                    <h4 className={cx("item-title")}>
-                      <p style={{fontSize:"13px"}}>{item.name}</p>
+                <div className="h-item">
+                  <div className="info">
+                    <h4 className="item-title">
+                      <p>{item.name}</p>
                     </h4>
-                    <h4 className={cx("alias-title")}>
-                      <p style={{fontSize:"12px", color:"#aaa"}}>{item.origin_name}</p>
+                    <h4 className="alias-title">
+                      <p>{item.origin_name}</p>
                     </h4>
                   </div>
                 </div>
@@ -104,17 +118,17 @@ function PageMovieSeries({ type }) {
         </div>
       )}
 
-      <div className={cx("v-pagination")}>
-        <div className={cx("page-control")}>
-          <button className={cx("btn-circle")} onClick={handlePrev}>
+      <div className="v-pagination">
+        <div className="page-control">
+          <button className="btn-circle" onClick={handlePrev}>
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <div className={cx("page-current")}>
+          <div className="page-current">
             <div>
               Trang {currentPage} / {quantityPage}
             </div>
           </div>
-          <button className={cx("btn-circle")} onClick={handleNext}>
+          <button className="btn-circle" onClick={handleNext}>
             <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
