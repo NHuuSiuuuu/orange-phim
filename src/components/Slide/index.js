@@ -107,7 +107,7 @@ function Slide() {
         // console.log(nMovies[nextIndex])
         return nMovies[nextIndex];
       });
-    }, 3000000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [nMovies]);

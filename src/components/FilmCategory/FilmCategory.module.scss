@@ -1,7 +1,6 @@
  .cards-row {
      width: 100%;
-     // height: 300px; 
-     // padding: 0 20px;
+     padding: 0 16px;
 
      .row-header {
          display: flex;
@@ -28,7 +27,6 @@
              display: flex;
              overflow-x: auto;
              -webkit-overflow-scrolling: touch;
-             padding: 0 16px;
 
 
              &::-webkit-scrollbar {

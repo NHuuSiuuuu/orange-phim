@@ -1,0 +1,88 @@
+   .row-content {
+       position: relative;
+
+       .topics-list {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); // tự động xuống dòng
+           gap: 1.8rem;
+
+
+           .row-topic {
+               padding: 1.2rem 2.5rem 1.2rem 1.5rem;
+               border-radius: 0.75rem;
+               overflow: hidden;
+               // width: 240px; không được cho width ở đây vì đang dùng auto-fit: nó sẽ tự giãn đều hàng khi thay đổi kích thước  
+               height: 152px;
+               align-items: center;
+               display: flex;
+               transition: transform 0.3s ease;
+
+           }
+       }
+   }
+
+   .heading-md {
+       color: #fff;
+       max-width: 210px;
+       text-shadow: 0 1px 0 #0002;
+       font-weight: 700;
+       font-size: 1.6em;
+       line-height: 1.3;
+   }
+
+   .category-name {
+       font-size: 2em;
+       line-height: 1.4;
+       font-weight: 600;
+       margin: 0;
+       color: var(--category-name);
+       text-shadow: 0 2px 1px rgba(0, 0, 0, .3);
+       margin: 150px 0 50px;
+   }
+
+   .v-pagination {
+       gap: 1rem;
+       width: 100%;
+       justify-content: center;
+       margin: 4rem 0;
+   }
+
+   .page-control {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap:1.5rem;
+   }
+
+   .btn-circle {
+       width: 50px;
+       height: 50px;
+       padding: .7rem;
+       border-radius: 3rem;
+       background-color: #2f3346;
+       color: #ffff;
+       //    #2f3346
+
+   }
+
+   .btn i {
+       font-size: .9em;
+       color: #fff;
+   }
+
+   .fa-solid,
+   .fas {
+       font-weight: 900;
+   }
+
+   .v-pagination .page-current {
+       height: 50px;
+       padding: 0 1.2rem;
+       border-radius: 3rem;
+       background-color: #2f3346;
+       color: #fff;
+       font-size: 15px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }

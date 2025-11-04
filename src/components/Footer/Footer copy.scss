@@ -1,9 +1,9 @@
+
+
 footer {
     background-image: url('../../assets/img/footer.png');
     max-width: 1900px;
     margin: auto;
-    padding: 32px 20px;
-    margin-top: 80px;
 }
 
 .container {
@@ -13,36 +13,15 @@ footer {
     .footer-elements {
         position: relative;
         min-height: 340px;
+        padding: 2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 }
-.socials {
-    display: flex;
-    flex-wrap: wrap;
-        gap: .75rem;
-        margin-bottom: 20px;
-}
-
-.social-item {
-    width: 40px;
-    height: 40px;
-    display: flex
-;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #fff1;
-}
-
 
 .silde-left {
     max-width: 750px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .true .line-center {

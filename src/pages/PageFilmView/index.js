@@ -146,16 +146,24 @@ function PageFilmView() {
               </div>
 
               <div
-                className={cx("status on-going")}
-                style={{ color: "#fff", fontSize: "11px",gap: "2px",
-                  marginTop: "0.6rem"
-              }}
+                className={cx("status")}
+                style={{
+                  color: "#fff",
+                  fontSize: "11px",
+                  gap: "2px",
+                  marginTop: "0.6rem",
+                }}
               >
                 {check == "completed" ? (
                   <FontAwesomeIcon className={cx("icon")} icon={faCheck} />
                 ) : (
                   <div className={cx("loading-d")}>
-                    <FontAwesomeIcon icon={faSpinner} className={cx("custom-spin")} spin /> {/*Thêm thằng spin trong thư viện FontS là nó xoay trong 2s  */}
+                    <FontAwesomeIcon
+                      icon={faSpinner}
+                      className={cx("custom-spin")}
+                      spin
+                    />{" "}
+                    {/*Thêm thằng spin trong thư viện FontS là nó xoay trong 2s  */}
                   </div>
                 )}
 
@@ -179,18 +187,22 @@ function PageFilmView() {
         </div>
 
         <div className={cx("desc-line")}>
-          <p style={{fontSize:'10px'}} dangerouslySetInnerHTML={{ __html: movie.item.content }} />
+          <p
+            style={{ fontSize: "10px" }}
+            dangerouslySetInnerHTML={{ __html: movie.item.content }}
+          />
         </div>
 
         {/* Danh sách các tập */}
         <div className={cx("episodes-list")}>
           <div className={cx("server-list")}>
-            <div className={cx("hl-tags mb-4")}>
+            <div className={cx("hl-tags flex")}>
               {movie.item.episodes.map((sv, idx) => (
                 <button
+                  key={idx}
                   className={cx("tag-topic")}
                   onClick={() => handleServer(sv, idx)}
-                  key={idx}
+                  style={{fontSize:"9px"}}
                 >
                   {sv.server_name}
                 </button>
@@ -199,11 +211,11 @@ function PageFilmView() {
           </div>
 
           <div className={cx("eps")}>
-            <div className={cx("hl-tags")}>
+            <div className={cx("eps_hl-tags")}>
               {movie.item.episodes[currentServer].server_data.map(
                 (item, index) => (
                   <button
-                    className={cx("tag-topic")}
+                    className={cx("eps_tag-topic")}
                     key={index}
                     onClick={() => setCurrentEpisodes(item)}
                   >
