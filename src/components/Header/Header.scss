@@ -147,6 +147,7 @@ img {
 
 .mobile_el-group {
     z-index: 99999;
+    animation: fadeIn .4s ease;
 }
 
 .header {
@@ -178,6 +179,7 @@ img {
 }
 
 .bars.for-mobile_search {
+    opacity: 1;
     display: block;
     // display: none;
 }
@@ -188,9 +190,21 @@ img {
 }
 
 .search {
-    // opacity: 0;
+    // opacity: 1;
     display: block;
+    animation: fadeIn .4s ease;
 
+
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX((-10px)) ;
+    }100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
 }
 
 .el-group {
