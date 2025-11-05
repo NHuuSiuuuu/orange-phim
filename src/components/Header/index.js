@@ -89,7 +89,8 @@ function Header() {
           </div>
         </Link>
       </div>
-      {showSearch && <Search />}
+      {/* Khi ở responsive pc thì hiện ô input */}
+      {showSearch || window.innerWidth >= 1024 && <Search />}
 
       {/* Icon search */}
       {!showSearch && (

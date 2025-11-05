@@ -59,7 +59,7 @@ function Search() {
         appendTo={() => document.body}
         interactive
         visible={showResult && searchResult.length > 0}
-        placement="top-start"
+        placement="bottom-start"
         // offset={[0, 0]} // Dịch tooltip 10px sang phải, 5px xuống
         render={(attrs) => (
           <div className="search-result" tabIndex="-1" {...attrs}>

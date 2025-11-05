@@ -91,7 +91,7 @@ function PageFilmView() {
   return (
     <div className={cx("wrapper page-film-view")}>
       <div className={cx("title")} onClick={handleGoBack}>
-        <h2 style={{ fontSize: "20px", margin: "20px 0 20px 10px" }}>
+        <h2 style={{ fontSize: "20px", margin: "100px 0 20px 10px" }}>
           <FontAwesomeIcon icon={faChevronCircleLeft} />
           {movie.item.name}
         </h2>
