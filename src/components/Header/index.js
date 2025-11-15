@@ -18,6 +18,8 @@ function Header() {
   const [isActive, setIsActive] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showNavigate, setNavigate] = useState(false);
+  // Kích thước trình duyệt
+  const [width, setWidth] = useState(window.innerWidth)
   window.onscroll = function () {
     // console.log(Math.floor(window.scrollY));
   };
@@ -29,11 +31,20 @@ function Header() {
         setIsActive(false);
       }
     };
+    
+    // Sự kiện thay đổi kích thước trình duyệt
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize)
 
     return () => {
       window.removeEventListener("scroll", handleScroll); //clear đi tránh rỏ rì bộ nhớ
+      window.removeEventListener("resize", handleResize); //clear đi tránh rỏ rì bộ nhớ
     };
+
   }, []);
   // console.log(isActive);
   const toggleSearch = () => {
@@ -90,7 +101,7 @@ function Header() {
         </Link>
       </div>
       {/* Khi ở responsive pc thì hiện ô input */}
-      {showSearch || window.innerWidth >= 1024 && <Search />}
+      {(showSearch ||  (width >= 1024 )) && <Search />}
 
       {/* Icon search */}
       {!showSearch && (
